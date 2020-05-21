@@ -257,10 +257,6 @@ jr_017_4603:
 jr_017_4612:
     ld   a, [wCreditsScratch0]                    ; $4612: $FA $00 $D0
     ld   e, a                                     ; $4615: $5F
-    ldh  a, [hFrameCounter]                       ; $4616: $F0 $E7
-    and  $03                                      ; $4618: $E6 $03
-    add  e                                        ; $461A: $83
-    ld   e, a                                     ; $461B: $5F
     ld   d, $00                                   ; $461C: $16 $00
     ldh  a, [hScratchD]                           ; $461E: $F0 $E4
     cp   $26                                      ; $4620: $FE $26
@@ -930,10 +926,10 @@ Data_017_4B3A::
     db   $01, $01, $00, $00, $00, $00, $00, $00, $00, $00, $01, $00, $00, $00, $00, $00
 
 Data_017_4BBA::
-    db   $E4, $E4, $E4, $E4, $94, $94, $94, $94, $40, $40, $40, $40, $00, $00, $00, $00
+    db   $E4, $E4, $94, $94, $40, $40, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_4BCA::
-    db   $1C, $1C, $1C, $1C, $18, $18, $18, $18, $04, $04, $04, $04, $00, $00, $00, $00
+    db   $1C, $1C, $18, $18, $04, $04, $00, $00, $00, $00,$00, $00, $00, $00, $00, $00
 
 CreditsInitHandler::
     call ResetCreditsSceneVariables               ; $4BDA: $CD $A5 $4D
@@ -965,10 +961,6 @@ jr_017_4BF7:
 jr_017_4C03:
     ld   a, [wIntroTimer]                         ; $4C03: $FA $01 $D0
     ld   e, a                                     ; $4C06: $5F
-    ldh  a, [hFrameCounter]                       ; $4C07: $F0 $E7
-    and  $03                                      ; $4C09: $E6 $03
-    add  e                                        ; $4C0B: $83
-    ld   e, a                                     ; $4C0C: $5F
     ld   d, b                                     ; $4C0D: $50
     ld   hl, Data_017_4BBA                        ; $4C0E: $21 $BA $4B
     add  hl, de                                   ; $4C11: $19
@@ -1128,13 +1120,13 @@ CreditsStairsPrepare2Handler::
     jp   IncrementCreditsSubscene                 ; $4D06: $C3 $D9 $4C
 
 Data_017_4D09::
-    db   $00, $00, $00, $00, $01, $01, $01, $01, $16, $16, $16, $16, $27, $27, $27, $27
+    db   $00, $00, $01, $01, $16, $16, $27, $27, $27, $27,$27, $27, $27, $27
 
 Data_017_4D19::
-    db   $00, $00, $00, $00, $04, $04, $04, $04, $18, $18, $18, $18, $1C, $1C, $1C, $1C
+    db   $00, $00, $04, $04, $18, $18, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C
 
 Data_017_4D29::
-    db   $00, $00, $00, $00, $00, $00, $00, $00, $50, $50, $50, $50, $90, $90, $90, $90
+    db   $00, $00, $00, $00, $50, $50, $90, $90, $90, $90, $90, $90, $90, $90, $90, $90
 
 CreditsStairsFadeInHandler::
     ld   a, [$D006]                               ; $4D39: $FA $06 $D0
@@ -1166,10 +1158,6 @@ jr_017_4D52:
 jr_017_4D5E:
     ld   a, [wIntroTimer]                         ; $4D5E: $FA $01 $D0
     ld   e, a                                     ; $4D61: $5F
-    ldh  a, [hFrameCounter]                       ; $4D62: $F0 $E7
-    and  $03                                      ; $4D64: $E6 $03
-    add  e                                        ; $4D66: $83
-    ld   e, a                                     ; $4D67: $5F
     ld   d, b                                     ; $4D68: $50
     ld   hl, Data_017_4D09                        ; $4D69: $21 $09 $4D
     add  hl, de                                   ; $4D6C: $19
@@ -1356,11 +1344,7 @@ Data_017_4EB8::
     db   $27, $27, $EB, $FF, $FF, $FF
 
 CreditsWindFishPrepare2Handler::
-    ldh  a, [hFrameCounter]                       ; $4EBE: $F0 $E7
-    and  $01                                      ; $4EC0: $E6 $01
-    ld   e, a                                     ; $4EC2: $5F
     ld   a, [$D00A]                               ; $4EC3: $FA $0A $D0
-    add  e                                        ; $4EC6: $83
     ld   e, a                                     ; $4EC7: $5F
     ld   d, $00                                   ; $4EC8: $16 $00
     ld   hl, Data_017_4EB8                        ; $4ECA: $21 $B8 $4E
@@ -1487,12 +1471,9 @@ jr_017_5129:
     ret                                           ; $512F: $C9
 
 Data_017_5130::
-    db   $FF, $FF, $FF, $FF, $BF, $BF, $BF, $BF, $6B, $6B, $6B, $6B, $27, $27, $27, $27
+    db   $FF, $FF, $FF, $BF, $BF, $BF, $BF, $6B, $6B, $6B, $6B, $27, $27, $27, $27
 
 CreditsWindFishApparitionHandler::
-    ldh  a, [hFrameCounter]                       ; $5140: $F0 $E7
-    and  $03                                      ; $5142: $E6 $03
-    ld   e, a                                     ; $5144: $5F
     ldh  a, [hIsGBC]                              ; $5145: $F0 $FE
     and  a                                        ; $5147: $A7
     jr   z, jr_017_5151                           ; $5148: $28 $07
@@ -1503,7 +1484,6 @@ CreditsWindFishApparitionHandler::
 
 jr_017_5151:
     ld   a, [$D00A]                               ; $5151: $FA $0A $D0
-    add  e                                        ; $5154: $83
     ld   e, a                                     ; $5155: $5F
     ld   d, $00                                   ; $5156: $16 $00
     ld   hl, Data_017_5130                        ; $5158: $21 $30 $51
@@ -1676,9 +1656,6 @@ Data_017_541E::
     db   $27, $27, $27, $27, $6B, $6B, $6B, $6B, $BF, $BF, $BF, $BF, $FF, $FF, $FF, $FF
 
 CreditsWindFishDisapparitionHandler::
-    ldh  a, [hFrameCounter]                       ; $542E: $F0 $E7
-    and  $03                                      ; $5430: $E6 $03
-    ld   e, a                                     ; $5432: $5F
     ldh  a, [hIsGBC]                              ; $5433: $F0 $FE
     and  a                                        ; $5435: $A7
     jr   z, jr_017_543E                           ; $5436: $28 $06
@@ -1689,7 +1666,6 @@ CreditsWindFishDisapparitionHandler::
 
 jr_017_543E:
     ld   a, [$D00A]                               ; $543E: $FA $0A $D0
-    add  e                                        ; $5441: $83
     ld   e, a                                     ; $5442: $5F
     ld   d, $00                                   ; $5443: $16 $00
     ld   hl, Data_017_541E                        ; $5445: $21 $1E $54
@@ -1997,13 +1973,13 @@ DisableAllEntities::
     ret                                           ; $5634: $C9
 
 Data_017_5635::
-    db   $FF, $FF, $FF, $FF, $AA, $AA, $AA, $AA, $55, $55, $55, $55, $00, $00, $00, $00
+    db   $FF, $FF, $AA, $AA, $55, $55, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_5645::
-    db   $1C, $1C, $1C, $1C, $18, $18, $18, $18, $04, $04, $04, $04, $00, $00, $00, $00
+    db   $1C, $1C, $18, $18, $04, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_5655::
-    db   $90, $90, $90, $90, $50, $50, $50, $50, $00, $00, $00, $00, $00, $00, $00, $00
+    db   $90, $90, $50, $50, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 func_017_5665::
     ldh  a, [hFrameCounter]                       ; $5665: $F0 $E7
@@ -2035,11 +2011,7 @@ jr_017_5689:
     jp   func_017_7F30                            ; $5692: $C3 $30 $7F
 
 jr_017_5695:
-    ldh  a, [hFrameCounter]                       ; $5695: $F0 $E7
-    and  $03                                      ; $5697: $E6 $03
-    ld   e, a                                     ; $5699: $5F
     ld   a, [$D00A]                               ; $569A: $FA $0A $D0
-    add  e                                        ; $569D: $83
     ld   e, a                                     ; $569E: $5F
     ld   d, $00                                   ; $569F: $16 $00
     ld   hl, Data_017_5635                        ; $56A1: $21 $35 $56
@@ -2488,10 +2460,10 @@ jr_017_594F:
     ret                                           ; $594F: $C9
 
 Data_017_5950::
-    db   $00, $00, $00, $00, $40, $40, $40, $40, $94, $94, $94, $94, $E4, $E4, $E4, $E4
+    db   $00, $00, $40, $40, $94, $94, $E4, $E4, $E4, $E4, $E4, $E4, $E4, $E4, $E4, $E4
 
 Data_017_5960::
-    db   $00, $00, $00, $00, $04, $04, $04, $04, $18, $18, $18, $18, $1C, $1C, $1C, $1C
+    db   $00, $00, $04, $04, $18, $18, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C, $1C
 
 func_017_5970::
     ldh  a, [hFrameCounter]                       ; $5970: $F0 $E7
@@ -2515,11 +2487,7 @@ jr_017_5982:
     jp   jr_017_5A32                              ; $598C: $C3 $32 $5A
 
 jr_017_598F:
-    ldh  a, [hFrameCounter]                       ; $598F: $F0 $E7
-    and  $03                                      ; $5991: $E6 $03
-    ld   e, a                                     ; $5993: $5F
     ld   a, [$D00A]                               ; $5994: $FA $0A $D0
-    add  e                                        ; $5997: $83
     ld   e, a                                     ; $5998: $5F
     ld   d, $00                                   ; $5999: $16 $00
     ld   hl, Data_017_5950                        ; $599B: $21 $50 $59
@@ -2550,11 +2518,7 @@ func_017_59A9::
     jr   jr_017_5A32                              ; $59C5: $18 $6B
 
 jr_017_59C7:
-    ldh  a, [hFrameCounter]                       ; $59C7: $F0 $E7
-    and  $03                                      ; $59C9: $E6 $03
-    ld   e, a                                     ; $59CB: $5F
     ld   a, [$D00A]                               ; $59CC: $FA $0A $D0
-    add  e                                        ; $59CF: $83
     ld   e, a                                     ; $59D0: $5F
     ld   d, $00                                   ; $59D1: $16 $00
     ld   hl, Data_017_6ED8                        ; $59D3: $21 $D8 $6E
@@ -2564,10 +2528,10 @@ jr_017_59C7:
     jr   jr_017_5A37                              ; $59DB: $18 $5A
 
 Data_017_59DD::
-    db   $E4, $E4, $E4, $E4, $94, $94, $94, $94, $40, $40, $40, $40, $00, $00, $00, $00
+    db   $E4, $E4, $94, $94, $40, $40, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_59ED::
-    db   $1C, $1C, $1C, $1C, $18, $18, $18, $18, $04, $04, $04, $04, $00, $00, $00, $00
+    db   $1C, $1C, $18, $18, $04, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 func_017_59FD::
     ldh  a, [hFrameCounter]                       ; $59FD: $F0 $E7
@@ -2592,11 +2556,7 @@ jr_017_5A0D:
     jr   jr_017_5A37                              ; $5A19: $18 $1C
 
 jr_017_5A1B:
-    ldh  a, [hFrameCounter]                       ; $5A1B: $F0 $E7
-    and  $03                                      ; $5A1D: $E6 $03
-    ld   e, a                                     ; $5A1F: $5F
     ld   a, [$D00A]                               ; $5A20: $FA $0A $D0
-    add  e                                        ; $5A23: $83
     ld   e, a                                     ; $5A24: $5F
     ld   d, $00                                   ; $5A25: $16 $00
     ld   hl, Data_017_59DD                        ; $5A27: $21 $DD $59
@@ -2630,11 +2590,7 @@ jr_017_5A42:
     ld   [$D00A], a                               ; $5A4D: $EA $0A $D0
 
 jr_017_5A50:
-    ldh  a, [hFrameCounter]                       ; $5A50: $F0 $E7
-    and  $03                                      ; $5A52: $E6 $03
-    ld   e, a                                     ; $5A54: $5F
     ld   a, [$D00A]                               ; $5A55: $FA $0A $D0
-    add  e                                        ; $5A58: $83
     ld   e, a                                     ; $5A59: $5F
     ld   d, $00                                   ; $5A5A: $16 $00
     ld   hl, Data_017_6456                        ; $5A5C: $21 $56 $64
@@ -3037,13 +2993,13 @@ jr_017_5F92:
     ret                                           ; $5F98: $C9
 
 Data_017_5F99::
-    db   $27, $27, $27, $27, $16, $16, $16, $16, $01, $01, $01, $01, $00, $00, $00, $00
+    db   $27, $27, $16, $16, $01, $01, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_5FA9::
-    db   $1C, $1C, $1C, $1C, $1C, $1C, $18, $18, $08, $08, $08, $08, $00, $00, $00, $00
+    db   $1C, $1C, $1C, $18, $08, $08, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 Data_017_5FB9::
-    db   $90, $90, $90, $90, $50, $50, $50, $50, $00, $00, $00, $00, $00, $00, $00, $00
+    db   $90, $90, $50, $50, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 CreditsWaterFadeToWhiteHandler::
     ld   a, [$C21E]                               ; $5FC9: $FA $1E $C2
@@ -3077,11 +3033,7 @@ jr_017_5FEF:
     jp   func_017_7F30                            ; $5FFC: $C3 $30 $7F
 
 jr_017_5FFF:
-    ldh  a, [hFrameCounter]                       ; $5FFF: $F0 $E7
-    and  $03                                      ; $6001: $E6 $03
-    ld   e, a                                     ; $6003: $5F
     ld   a, [$D00A]                               ; $6004: $FA $0A $D0
-    add  e                                        ; $6007: $83
     ld   e, a                                     ; $6008: $5F
     ld   d, $00                                   ; $6009: $16 $00
     ld   hl, Data_017_5F99                        ; $600B: $21 $99 $5F
@@ -3189,11 +3141,11 @@ LinkOnSeaLarge1Handler::
 
 ; Palettes indices
 Data_017_60CA::
-    db   $00, $00, $00, $00, $05, $05, $05, $05, $19, $19, $1A, $1A, $1E, $1E, $1E, $1E
+    db   $00, $00, $05, $05, $19, $1A, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E
 
 ; Palettes indices
 Data_017_60DA::
-    db   $00, $00, $00, $00, $00, $01, $01, $01, $51, $51, $52, $52, $92, $92, $92, $92
+    db   $00, $00, $00, $01, $01, $51, $52, $92, $92, $92, $92, $92, $92, $92, $92, $92
 
 LinkOnSeaLarge2Handler::
     call ResetCreditsSceneVariables               ; $60EA: $CD $A5 $4D
@@ -3303,13 +3255,13 @@ jr_017_618B:
 
 ; Palettes indices
 Data_017_61AD::
-    db   $00, $00, $00, $00, $05, $05, $05, $05, $05, $05, $05, $05, $19, $19, $1A, $1A
-    db   $1E, $1E, $1E, $1E
+    db   $00, $00, $05, $05, $05, $05, $19, $1A
+    db   $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E
 
 ; Palettes indices
 Data_017_61C1::
-    db   $00, $00, $00, $00, $00, $01, $01, $01, $01, $01, $01, $01, $51, $51, $51, $52
-    db   $52, $92, $92, $92, $92
+    db   $00, $00, $00, $01, $01, $01, $01, $51, $51, $52
+    db   $92, $92, $92, $92, $92, $92, $92, $92, $92, $92, $92
 
 CreditsSunAbove2Handler::
     ldh  a, [hFrameCounter]                       ; $61D6: $F0 $E7
@@ -3337,11 +3289,7 @@ jr_017_61EE:
     jp   func_017_7E80                            ; $61FB: $C3 $80 $7E
 
 jr_017_61FE:
-    ldh  a, [hFrameCounter]                       ; $61FE: $F0 $E7
-    and  $03                                      ; $6200: $E6 $03
-    ld   e, a                                     ; $6202: $5F
     ld   a, [$D00A]                               ; $6203: $FA $0A $D0
-    add  e                                        ; $6206: $83
     ld   e, a                                     ; $6207: $5F
     ld   d, $00                                   ; $6208: $16 $00
     ld   hl, Data_017_61AD                        ; $620A: $21 $AD $61
@@ -3637,11 +3585,11 @@ jr_017_6455:
 
 ; Palettes indices
 Data_017_6456::
-    db   $1E, $1E, $1E, $1E, $1A, $1A, $19, $19, $05, $05, $05, $05, $00, $00, $00, $00
+    db   $1E, $1E, $1A, $19, $05, $05, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 ; Palettes indices
 Data_017_6466::
-    db   $92, $92, $92, $92, $92, $92, $51, $51, $41, $41, $00, $00, $00, $00, $00, $00
+    db   $92, $92, $92, $51, $41, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 
 func_017_6476::
     ld   a, [$D01F]                               ; $6476: $FA $1F $D0
@@ -3681,11 +3629,7 @@ jr_017_649C:
     jp   func_017_7F30                            ; $64B0: $C3 $30 $7F
 
 jr_017_64B3:
-    ldh  a, [hFrameCounter]                       ; $64B3: $F0 $E7
-    and  $03                                      ; $64B5: $E6 $03
-    ld   e, a                                     ; $64B7: $5F
     ld   a, [$D005]                               ; $64B8: $FA $05 $D0
-    add  e                                        ; $64BB: $83
     ld   e, a                                     ; $64BC: $5F
     ld   d, $00                                   ; $64BD: $16 $00
     ld   hl, Data_017_6456                        ; $64BF: $21 $56 $64
@@ -3992,11 +3936,7 @@ jr_017_686C:
     jp   func_017_7E80                            ; $6879: $C3 $80 $7E
 
 jr_017_687C:
-    ldh  a, [hFrameCounter]                       ; $687C: $F0 $E7
-    and  $03                                      ; $687E: $E6 $03
-    ld   e, a                                     ; $6880: $5F
     ld   a, [$D00A]                               ; $6881: $FA $0A $D0
-    add  e                                        ; $6884: $83
     ld   e, a                                     ; $6885: $5F
     ld   d, $00                                   ; $6886: $16 $00
     ld   hl, Data_017_60CA                        ; $6888: $21 $CA $60
@@ -4029,7 +3969,7 @@ jr_017_68B6:
 
 ; Palettes indices
 Data_017_68B7::
-    db   $1E, $1E, $1E, $1E, $2E, $2E, $2E, $2E, $6E, $6E, $6E, $6E
+    db   $1E, $1E, $2E, $2E, $6E, $6E, $6E, $6E, $6E, $6E, $6E, $6E
 
 LinkSeatedOnLog4Handler::
     ld   de, $9960                                ; $68C3: $11 $60 $99
@@ -4055,11 +3995,7 @@ jr_017_68E1:
     jp   nz, label_017_6A80                       ; $68E8: $C2 $80 $6A
 
 jr_017_68EB:
-    ldh  a, [hFrameCounter]                       ; $68EB: $F0 $E7
-    and  $03                                      ; $68ED: $E6 $03
-    ld   e, a                                     ; $68EF: $5F
     ld   a, [$D00A]                               ; $68F0: $FA $0A $D0
-    add  e                                        ; $68F3: $83
     ld   e, a                                     ; $68F4: $5F
     ld   d, $00                                   ; $68F5: $16 $00
     ld   hl, Data_017_68B7                        ; $68F7: $21 $B7 $68
@@ -4190,11 +4126,7 @@ jr_017_6BD6:
     add  hl, de                                   ; $6BDF: $19
     ld   a, [hl]                                  ; $6BE0: $7E
     ld   [$D00C], a                               ; $6BE1: $EA $0C $D0
-    ldh  a, [hFrameCounter]                       ; $6BE4: $F0 $E7
-    and  $03                                      ; $6BE6: $E6 $03
-    ld   e, a                                     ; $6BE8: $5F
     ld   a, [$D00C]                               ; $6BE9: $FA $0C $D0
-    add  e                                        ; $6BEC: $83
     ld   e, a                                     ; $6BED: $5F
     ld   d, $00                                   ; $6BEE: $16 $00
     ld   hl, Data_017_6BA1                        ; $6BF0: $21 $A1 $6B
@@ -4308,11 +4240,7 @@ LinkSeatedOnLog8Handler::
     jp   func_017_64DE                            ; $6CA6: $C3 $DE $64
 
 jr_017_6CA9:
-    ldh  a, [hFrameCounter]                       ; $6CA9: $F0 $E7
-    and  $03                                      ; $6CAB: $E6 $03
-    ld   e, a                                     ; $6CAD: $5F
     ld   a, [$D00C]                               ; $6CAE: $FA $0C $D0
-    add  e                                        ; $6CB1: $83
     ld   e, a                                     ; $6CB2: $5F
     ld   d, $00                                   ; $6CB3: $16 $00
     ld   hl, Data_017_6BA1                        ; $6CB5: $21 $A1 $6B
@@ -4565,11 +4493,7 @@ jr_017_6E34:
     jp   func_017_7F30                            ; $6E3D: $C3 $30 $7F
 
 jr_017_6E40:
-    ldh  a, [hFrameCounter]                       ; $6E40: $F0 $E7
-    and  $03                                      ; $6E42: $E6 $03
-    ld   e, a                                     ; $6E44: $5F
     ld   a, [wIntroSubTimer]                      ; $6E45: $FA $02 $D0
-    add  e                                        ; $6E48: $83
     ld   e, a                                     ; $6E49: $5F
     ld   d, $00                                   ; $6E4A: $16 $00
     ld   hl, Data_017_6456                        ; $6E4C: $21 $56 $64
@@ -4650,7 +4574,7 @@ CreditsRoll1Handler::
     jp   IncrementCreditsSubscene                 ; $6ED5: $C3 $D9 $4C
 
 Data_017_6ED8::
-    db   $00, $00, $00, $00, $04, $04, $04, $04, $19, $19, $19, $19, $1E, $1E, $1E, $1E
+    db   $00, $00, $04, $04, $19, $19, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E, $1E
 
 CreditsRoll2Handler::
     ldh  a, [hFrameCounter]                       ; $6EE8: $F0 $E7
@@ -4679,11 +4603,7 @@ jr_017_6F04:
     jp   func_017_7E80                            ; $6F0D: $C3 $80 $7E
 
 jr_017_6F10:
-    ldh  a, [hFrameCounter]                       ; $6F10: $F0 $E7
-    and  $03                                      ; $6F12: $E6 $03
-    ld   e, a                                     ; $6F14: $5F
     ld   a, [wIntroSubTimer]                      ; $6F15: $FA $02 $D0
-    add  e                                        ; $6F18: $83
     ld   e, a                                     ; $6F19: $5F
     ld   d, $00                                   ; $6F1A: $16 $00
     ld   hl, Data_017_6ED8                        ; $6F1C: $21 $D8 $6E

@@ -173,6 +173,7 @@ jr_001_40F9::
     ld   a, $01
     ld   [$DBAF], a
     call func_001_6162
+    call LCDOff
     ; fallthrough
 
 ; Enable LCD Screen

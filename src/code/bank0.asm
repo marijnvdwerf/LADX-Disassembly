@@ -308,11 +308,6 @@ func_999::
     ldi  [hl], a
     jr   RestoreStackedBankAndReturn
 
-CheckPushedTombStone_trampoline::
-    push af
-    callsb CheckPushedTombStone
-    jr   RestoreStackedBankAndReturn
-
 GetEntityInitHandler_trampoline::
     push af
     ; Will lookup something in an entity id table
@@ -499,6 +494,11 @@ func_036_7161_trampoline::
 LoadPhotoBgMap_trampoline::
     callsb LoadPhotoBgMap
     ret
+
+unklabel:
+    push af
+    callsb fn_036_72d5
+    jp RestoreStackedBankAndReturn
 
 ; Toogle an extra byte to the bank number on GBC (on DMG, does nothing)
 ; Input:  a: the bank number to adjust
@@ -1938,6 +1938,7 @@ UseShovel::
     ldh  [hNoiseSfx], a
 .endIf
 
+    call ResetPegasusBoots
     ld   a, $01
     ld   [$C1C7], a
     xor  a
@@ -2989,7 +2990,7 @@ LinkMotionMapFadeOutHandler::
 ; or starting after a game over.
 SetSpawnLocation::
     ; Initialize counter
-    ld   a, $00
+    xor a
     ldh  [hScratch0], a
     ld   de, wSpawnLocationData
 
@@ -3035,7 +3036,7 @@ LinkMotionMapFadeInHandler::
     call func_1A39
     ld   a, [wTransitionSequenceCounter]
     cp   $04
-    jr   nz, .return
+    ret nz
 
 .label_1A06
     ld   a, [$D463]
@@ -3047,14 +3048,11 @@ LinkMotionMapFadeInHandler::
     ld   [wLinkMotionState], a
     ld   a, [wDidStealItem]
     and  a
-    jr   z, .return
+    ret z
     xor  a
     ld   [wDidStealItem], a
     ld   a, $36
     jp   OpenDialog
-
-.return
-    ret
 
 func_1A22::
     callsb func_020_6C4F
@@ -3394,7 +3392,7 @@ label_1F69::
     or   [hl]
     ld   hl, wLinkMotionState
     or   [hl]
-    jp   nz, func_2165.return
+    ret nz
 
     ; Update hSwordIntersectedAreaX according to Link's position and direction
     ldh  a, [hLinkDirection]
@@ -3630,10 +3628,10 @@ label_1F69::
 .jr_20DD
     ld   a, [wAButtonSlot]
     cp   INVENTORY_POWER_BRACELET
-    jp   nz, func_2165.return
+    ret nz
     ldh  a, [hPressedButtonsMask]
     and  J_A
-    jp   z, func_2165.return
+    ret z
 
 .jr_20EC
     callsb label_002_48B0
@@ -3673,7 +3671,7 @@ label_1F69::
     inc  [hl]
     ld   a, [hl]
     cp   e
-    jr   c, .return
+    ret c
     xor  a
     ldh  [$FFE5], a
     ldh  a, [hScratch0]
@@ -3683,7 +3681,7 @@ label_1F69::
     jr   z, .jr_2153
     ld   a, [wIsIndoor]
     and  a
-    jr   nz, .return
+     ret nz
     ldh  a, [hScratch0]
     cp   $5C
     jr   z, .jr_2161
@@ -3715,9 +3713,6 @@ func_2165::
     ld   [$C15D], a
     jp   label_2183
 
-.return
-    ret
-
 func_014_5526_trampoline::
     callsb func_014_5526
     jp   ReloadSavedBank
@@ -3725,7 +3720,7 @@ func_014_5526_trampoline::
 label_2183::
     ld   a, ENTITY_ENTITY_LIFTABLE_ROCK
     call SpawnPlayerProjectile
-    jr   c, label_21A7
+    ret c
 
     ld   a, WAVE_SFX_ZIP
     ldh  [hWaveSfx], a
@@ -3742,8 +3737,6 @@ label_2183::
     ld   e, $01
     jpsw func_003_5795
 
-label_21A7::
-    ret
 
 UpdateFinalLinkPosition::
     ; If inventory is appearing, return

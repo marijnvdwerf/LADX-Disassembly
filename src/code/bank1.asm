@@ -787,6 +787,21 @@ func_001_58A8::
     ldi  [hl], a
     ld   [hl], $3E
     inc  hl
+    ldh  a, [hIsGBC]
+    and  a
+    jr   z, jr_001_58d6
+
+    ld   a, $00
+
+    ld   [hl], a
+    ldh  a, [hFrameCounter]
+    and  $08
+    ret  z
+
+    ld   a, $03
+    ld   [hl], a
+    ret
+jr_001_58d6:
     ldh  a, [hFrameCounter]
     rla
     and  $10

@@ -1075,6 +1075,15 @@ func_020_4B81::
 
     xor  a                                        ; $4B8E: $AF
     ld   [wBombArrowCooldown], a                  ; $4B8F: $EA $C0 $C1
+
+    ld   a, [wAButtonSlot]
+    cp   INVENTORY_BOW
+    ret  nz
+
+    ld   a, [wBButtonSlot]
+    cp   INVENTORY_BOW
+    ret  nz
+
     ld   a, [$C1C2]                               ; $4B92: $FA $C2 $C1
     ld   c, a                                     ; $4B95: $4F
     ld   b, d                                     ; $4B96: $42
@@ -3857,12 +3866,16 @@ Data_020_6346::
     db   $0E, $0E, $26, $26, $3E, $3E, $56, $56, $6E, $6E, $86, $86
 
 func_020_6352::
+    ldh a, [hIsGBC]
+    and a
+    jr nz, jr_020_6369
     ld   a, [wBGPalette]                          ; $6352: $FA $97 $DB
 
 jr_020_6355:
     cp   $E4                                      ; $6355: $FE $E4
     ret  c                                        ; $6357: $D8
 
+jr_020_6369:
     ld   d, $02                                   ; $6358: $16 $02
     jr   jr_020_635E                              ; $635A: $18 $02
 
@@ -3985,10 +3998,6 @@ jr_020_63F5:
     ld   a, [wFreeMovementMode]                   ; $640B: $FA $7B $C1
     xor  $01                                      ; $640E: $EE $01
     ld   [wFreeMovementMode], a                   ; $6410: $EA $7B $C1
-    ld   a, $01                                   ; $6413: $3E $01
-    ld   [wPhotos1], a                            ; $6415: $EA $0C $DC
-    xor  a                                        ; $6418: $AF
-    ld   [wPhotos2], a                            ; $6419: $EA $0D $DC
 
 jr_020_641C:
     jr   jr_020_6445                              ; $641C: $18 $27
@@ -5066,7 +5075,7 @@ jr_020_6D1E:
     ldh  [hScratchE], a                           ; $6D2A: $E0 $E5
     ld   a, $04                                   ; $6D2C: $3E $04
     ldh  [hFreeWarpDataAddress], a                ; $6D2E: $E0 $E6
-    ld   hl, $DC30                                ; $6D30: $21 $30 $DC
+    ld   hl, $DC50                                ; $6D30: $21 $30 $DC
     ld   d, $20                                   ; $6D33: $16 $20
     call func_020_6A68                            ; $6D35: $CD $68 $6A
 

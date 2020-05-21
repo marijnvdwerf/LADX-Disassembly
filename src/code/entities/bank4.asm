@@ -3648,7 +3648,7 @@ jr_004_6575:
     ret                                           ; $6575: $C9
 
 Data_004_6576::
-    db   $54, $00
+    db   $54, $02
 
 Data_004_6578::
     db   $08, $F8
@@ -6872,7 +6872,7 @@ jr_004_78D4:
 
     ld   a, [$C509]                               ; $78E6: $FA $09 $C5
     and  a                                        ; $78E9: $A7
-    jr   z, jr_004_7907                           ; $78EA: $28 $1B
+    jr   z, _7907                           ; $78EA: $28 $1B
 
     ldh  a, [hLinkPositionX]                      ; $78EC: $F0 $98
     add  $00                                      ; $78EE: $C6 $00
@@ -6889,6 +6889,15 @@ jr_004_78D4:
     ld   a, JINGLE_VALIDATE                       ; $7900: $3E $13
     ldh  [hJingle], a                             ; $7902: $E0 $F2
     jp   label_004_796D                           ; $7904: $C3 $6D $79
+
+_7907:
+    ld a, [$c3cf]
+    and a
+    jr nz, jr_004_7940
+
+    ld a, [wIsCarryingLiftedObject]
+    and a
+    jr nz, jr_004_7940
 
 jr_004_7907:
     ldh  a, [hLinkPositionX]                      ; $7907: $F0 $98

@@ -481,6 +481,8 @@ JumpTable_037_42FE::
     jp   func_037_53FE                            ; $432E: $C3 $FE $53
 
 func_037_4331::
+   ld a, $1c                                     ; $4331: $3e $1c
+    ld [wEntitiesPosXTable], a                    ; $4333: $ea $00 $c2
     ld   a, [wGameplayType]                       ; $4331: $FA $95 $DB
     sub  $0E                                      ; $4334: $D6 $0E
     JP_TABLE                                      ; $4336: $C7
@@ -1027,11 +1029,14 @@ Data_037_46AB::
 
 func_037_46AF::
     ld   hl, $C20A                                ; $46AF: $21 $0A $C2
-    dec  [hl]                                     ; $46B2: $35
     ld   a, [hl]                                  ; $46B3: $7E
     and  a                                        ; $46B4: $A7
-    jr   nz, .else_46D7_37                        ; $46B5: $20 $20
+    jr   z, .jr_037_46be                        ; $46B5: $20 $20
 
+    dec [hl]                                      ; $46bb: $35
+    jr .else_46D7_37
+
+.jr_037_46be
     push hl                                       ; $46B7: $E5
     call GetRandomByte                            ; $46B8: $CD $0D $28
     and  %00000011                                ; $46BB: $E6 $03

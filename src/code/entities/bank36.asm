@@ -1465,7 +1465,7 @@ Data_036_48CE::
     db   $40, $07, $42, $07
 
 Data_036_48E2::
-    db   $70, $03, $72, $03, $74, $03, $76, $03, $6A, $23, $68, $23, $6E, $23, $6C, $23
+    db   $70, $06, $72, $06, $74, $06, $76, $06, $6A, $26, $68, $26, $6E, $26, $6C, $26
 
 Data_036_48F2::
     db   $70, $06, $72, $06, $74, $06, $76, $06
@@ -2520,6 +2520,10 @@ func_036_4F4E::
 func_036_4F68::
     ld   a, [wCurrentBank]                        ; $4F68: $FA $AF $DB
     push af                                       ; $4F6B: $F5
+        ld a, $09
+    ld hl, wEntitiesHealthGroup
+    add hl, bc
+    ld [hl], a
     ld   a, $36                                   ; $4F6C: $3E $36
     ld   [wCurrentBank], a                        ; $4F6E: $EA $AF $DB
     ld   hl, wEntitiesPrivateState2Table          ; $4F71: $21 $C0 $C2
@@ -4628,6 +4632,17 @@ func_036_5CBD::
     and  a                                        ; $5CC5: $A7
     ret  z                                        ; $5CC6: $C8
 
+    call func_036_6B8A
+    ld d, $20
+    cp d
+    jr nc, jr_036_5cf4
+
+    call func_036_6B9A
+    ld d, $20
+    cp d
+    jr nc, jr_036_5cf4
+
+
     ld   a, $10                                   ; $5CC7: $3E $10
     ld   [$C13E], a                               ; $5CC9: $EA $3E $C1
     ld   a, $20                                   ; $5CCC: $3E $20
@@ -4636,6 +4651,7 @@ func_036_5CBD::
     ldh  [hLinkPositionYIncrement], a             ; $5CD3: $E0 $9B
     ldh  a, [hScratch1]                           ; $5CD5: $F0 $D8
     ldh  [hLinkPositionXIncrement], a             ; $5CD7: $E0 $9A
+jr_036_5cf4:
     ld   a, $30                                   ; $5CD9: $3E $30
     call func_036_6C83                            ; $5CDB: $CD $83 $6C
     ld   hl, wEntitiesPrivateState2Table          ; $5CDE: $21 $C0 $C2
@@ -7957,6 +7973,9 @@ func_036_70D6::
     cp   $04                                      ; $70DC: $FE $04
     ret  nz                                       ; $70DE: $C0
 
+    xor a
+    ld [$dc52], a
+
     ldh  a, [hIsGBC]                              ; $70DF: $F0 $FE
     and  a                                        ; $70E1: $A7
     ret  z                                        ; $70E2: $C8
@@ -8266,6 +8285,53 @@ EntityInitGenie::
     add  $08                                      ; $72B6: $C6 $08
     ld   [hl], a                                  ; $72B8: $77
     ret                                           ; $72B9: $C9
+
+fn_036_72d5:
+    ldh a, [hActiveEntityState]
+    sub $02
+    rst $00
+    db $e4
+    ld [hl], d
+    db $e4
+    ld [hl], d
+    db $eb
+    ld [hl], d
+    di
+    ld [hl], d
+    ld a, [bc]
+    ld [hl], e
+    ld a, [$dc52]
+    inc a
+    ret nz
+
+    jr jr_036_7307
+
+    ld a, [wDialogState]
+    and a
+    jr z, jr_036_730a
+
+    jr jr_036_7307
+
+    ld a, [wDialogState]
+    and a
+    jr nz, jr_036_730a
+
+    ld hl, $dc64
+    ld a, $ff
+    ld [hl+], a
+    ld a, $7f
+    ld [hl], a
+    ld a, $02
+    ld [wPaletteDataFlags], a
+
+jr_036_7307:
+    call IncrementEntityState
+
+jr_036_730a:
+    ld a, $04
+    ld [wInvincibilityCounter], a
+    ret
+
 
 ; On Overworld, copy some palette data to OAM buffer
 func_036_72BA::
