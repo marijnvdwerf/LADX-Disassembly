@@ -23,4 +23,3 @@ GopongaFlowerEntityHandler::
 .flipStateEnd
     ld   a, e                                     ; $6416: $7B
     jp   SetEntitySpriteVariant                   ; $6417: $C3 $0C $3B
-

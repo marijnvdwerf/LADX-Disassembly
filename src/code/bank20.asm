@@ -6128,4 +6128,3 @@ LoadTileset23::
     ld   h, BANK(@)                               ; $7E02: $26 $20
     call Copy100BytesFromBankAtA                  ; $7E04: $CD $13 $0A
     ret                                           ; $7E07: $C9
-

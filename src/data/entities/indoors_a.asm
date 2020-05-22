@@ -1454,4 +1454,3 @@ IndoorsAFEEntities::
 IndoorsAFFEntities::
   entity $2, $6, ENTITY_ANGLER_FISH
   entities_end
-

@@ -144,4 +144,3 @@ ColorDungeon1DEntities::
 ColorDungeon1EEntities::
 ColorDungeon1FEntities::
   entities_end
-

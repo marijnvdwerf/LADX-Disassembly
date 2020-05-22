@@ -4346,4 +4346,3 @@ Overworld7F::
   db   $82, $30, $EB           ; object
   db   $82, $40, $EB           ; object
   db   ROOM_END
-

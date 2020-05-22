@@ -9663,4 +9663,3 @@ jr_007_7F76:
     ld   hl, hNoiseSfx                            ; $7F79: $21 $F4 $FF
     ld   [hl], $1A                                ; $7F7C: $36 $1A
     ret                                           ; $7F7E: $C9
-

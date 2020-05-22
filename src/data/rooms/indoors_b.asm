@@ -7315,4 +7315,3 @@ IndoorsBFE::
   db   $74, $FD                ; object
   db   $E0, $00, $E3, $48, $30 ; object
   db   ROOM_END
-

@@ -30,4 +30,3 @@ charmap "<right>", $f3
 
 charmap "<ask>", $fe
 charmap "@", $ff
-

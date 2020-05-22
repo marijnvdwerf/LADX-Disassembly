@@ -3679,4 +3679,3 @@ OverworldFF::
   db   $58, $3A                ; object
   db   $59, $3B                ; object
   db   ROOM_END
-

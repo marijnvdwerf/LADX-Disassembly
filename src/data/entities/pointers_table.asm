@@ -807,4 +807,3 @@ ColorDungeonEntitiesPointersTable::
   dw    ColorDungeon1DEntities  ; $5700
   dw    ColorDungeon1EEntities  ; $5700
   dw    ColorDungeon1FEntities  ; $5700
-

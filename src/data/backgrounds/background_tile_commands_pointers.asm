@@ -37,4 +37,3 @@ BackgroundTileCommandsPointersTable::
   dw    BackgroundTileCommands23  ; $7781
   dw    BackgroundTileCommands24  ; $4DD4
   dw    BackgroundTileCommands25  ; $6C37
-

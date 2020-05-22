@@ -13,4 +13,3 @@ BGPalettePointersTableB::
     dw   BGPaletteData_05
     dw   BGPaletteData_06
     dw   BGPaletteData_07
-

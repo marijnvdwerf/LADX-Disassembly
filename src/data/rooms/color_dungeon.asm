@@ -470,4 +470,3 @@ ColorDungeon15::
   db   $02, $C7                ; object
   db   $07, $C7                ; object
   db   ROOM_END
-

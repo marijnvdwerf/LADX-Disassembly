@@ -1264,4 +1264,3 @@ IndoorsBFEEntities::
 IndoorsBFFEntities::
   entity $3, $4, ENTITY_RAFT_RAFT_OWNER
   entities_end
-

@@ -593,4 +593,3 @@ RoomGBCOverlay8CAlt::   ; Alternate Northern Face Shrine (entrance raised)
     db $38, $B6, $B9, $B9, $B9, $B6, $F4, $04, $F3, $0E
     db $38, $B7, $B9, $B9, $B9, $B7, $38, $04, $F4, $0E
     db $38, $2F, $48, $E0, $49, $2F, $4E, $04, $38, $0E
-

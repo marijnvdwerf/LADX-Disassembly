@@ -1733,6 +1733,3 @@ func_01E_4D2A::
     ldh  [rNR10], a                               ; $4DA4: $E0 $10
     ldh  [rNR30], a                               ; $4DA6: $E0 $1A
     ret                                           ; $4DA8: $C9
-
-
-

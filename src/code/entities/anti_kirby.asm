@@ -394,4 +394,3 @@ jr_006_44F1:
     ld   c, $03                                   ; $4501: $0E $03
     call RenderActiveEntitySpritesRect            ; $4503: $CD $E6 $3C
     jp   label_3CD9                               ; $4506: $C3 $D9 $3C
-

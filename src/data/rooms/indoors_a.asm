@@ -7100,4 +7100,3 @@ IndoorsAFF::
   db   $83, $77, $72           ; object
   db   $E1, $03, $66, $48, $50 ; object
   db   ROOM_END
-

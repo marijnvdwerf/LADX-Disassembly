@@ -1262,4 +1262,3 @@ OverworldFFEntities::
   entity $2, $3, ENTITY_LEEVER
   entity $4, $2, ENTITY_LEEVER
   entities_end
-
