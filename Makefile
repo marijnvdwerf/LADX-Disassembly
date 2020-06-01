@@ -130,7 +130,7 @@ azle-r1.gbc: $(e1_obj)
 games += azle-r2.gbc
 e2_obj = src/main.azle-2.o
 src/main.azle-2.o: src/main.asm $(deps)
-	$(ASM) -i revisions/E2/src/ -i revisions/E0/src/ -i src/ -o $@ $<
+	$(ASM) -i revisions/E2/src/ -i revisions/E1/src/ -i src/ -o $@ $<
 azle-r2.gbc: $(e2_obj) azlf-r1.gbc
 	rgblink -overlay "azlf-r1.gbc" -n $*.sym -m $*.map -o $@ $<
 	rgbfix  -c -n 2 -r 0x03 -s -l 0x33 -k "01" -m 0x1B -j -p 0xFF -t "ZELDA" --game-id "AZLE" -v $@

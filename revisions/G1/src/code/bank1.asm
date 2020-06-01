@@ -1520,7 +1520,7 @@ Call_001_5eca:
     ld a, [hl+]                                   ; $5ed8: $2a
     ld d, a                                       ; $5ed9: $57
     ld a, [de]                                    ; $5eda: $1a
-    and ROOM_STATUS_BOSS_DEFEATED
+    and $20 ; ROOM_STATUS_BOSS_DEFEATED
     jr z, .endIfBossDefeated                             ; $5edd: $28 $05
     ldh a, [hScratch0]                            ; $5edf: $f0 $d7
     inc a                                         ; $5ee1: $3c
