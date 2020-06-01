@@ -231,7 +231,7 @@ Dialog01A::
     db "secret medicine!"
     db "It will take    "
     db "effect when you "
-    db "lose all heart! "
+    db "lose all hearts!"
     db "Drop by again,  "
     db "big guy!@"
 
@@ -596,8 +596,8 @@ Dialog054::
     db "your name?  You "
     db "think it's weird"
     db "eh?  Well, I saw"
-    db "it on back of   "
-    db "this shield!@"
+    db "it on the back  "
+    db "of this shield!@"
 
 Dialog055::
     db "Oh, yeah... Some"

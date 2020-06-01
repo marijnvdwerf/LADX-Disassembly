@@ -2399,14 +2399,6 @@ func_037_4F37::
     ret                                           ; $4F5A: $C9
 
 JumpTable_037_4F5B::
-    ldh  a, [hJoypadState]                        ; $4F5B: $F0 $CC
-    and  J_START                                  ; $4F5D: $E6 $80
-    jr   z, .else_4F6B_37                         ; $4F5F: $28 $0A
-
-    xor  a                                        ; $4F61: $AF
-    ld   [wC16C], a                               ; $4F62: $EA $6C $C1
-    ld   [wTransitionSequenceCounter], a          ; $4F65: $EA $6B $C1
-    call func_037_53FE                            ; $4F68: $CD $FE $53
 
 .else_4F6B_37:
     call func_037_4F70                            ; $4F6B: $CD $70 $4F

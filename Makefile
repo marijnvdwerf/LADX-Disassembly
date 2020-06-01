@@ -37,5 +37,5 @@ src/main.o: $(asm_files) $(gfx_files:.png=.2bpp) $(bin_files)
 # This also spits out game.sym, which lets you use labels in bgb.
 # Generating a mapfile is required thanks to a bug in rgblink.
 game.gbc: $(obj)
-	rgblink -n $*.sym -m $*.map -o $@ $(obj)
-	rgbfix  -c -n 1 -r 0x03 -s -l 0x33 -k "01" -m 0x1B -j -p 0xFF -t "ZELDA" -v $@
+	rgblink -overlay "../LADX/AZLF1.gbc" -n $*.sym -m $*.map -o $@ $(obj)
+	rgbfix  -c -n 2 --game-id "AZLE" -r 0x03 -s -l 0x33 -k "01" -m 0x1B -j -p 0xFF -t "ZELDA" -v $@

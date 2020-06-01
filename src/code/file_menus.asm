@@ -944,44 +944,59 @@ func_001_4D9D::
 func_001_4DA6::
     ld   a, [wSaveFilesCount]                     ; $4DA6: $FA $A7 $DB
     and  $01                                      ; $4DA9: $E6 $01
-    jr   z, jr_001_4DBD                            ; $4DAB: $28 $10
+    ret z
 
-    xor  a                                        ; $4DAD: $AF
-    ldh  [hScratch4], a                           ; $4DAE: $E0 $DB
-    ld   a, [$DC06]                               ; $4DB0: $FA $06 $DC
-    ldh  [hScratch2], a                           ; $4DB3: $E0 $D9
-    ld   a, [$DC09]                               ; $4DB5: $FA $09 $DC
-    ldh  [hScratch3], a                           ; $4DB8: $E0 $DA
-    jp   label_001_5D53                               ; $4DBA: $C3 $53 $5D
-
+    xor a
+   ld hl, $dc06                                  ; $4db0: $21 $06 $dc
+    ld de, $dc09                                  ; $4db3: $11 $09 $dc
+jr_001_4db6:
+    ldh [hScratch4], a                            ; $4db6: $e0 $db
+    ld a, [hl]                                    ; $4db8: $7e
+    ldh [hScratch2], a                            ; $4db9: $e0 $d9
+    ld a, [de]                                    ; $4dbb: $1a
+    cp $03                                        ; $4dbc: $fe $03
+    jr nc, jr_001_4dc2                            ; $4dbe: $30 $02
 jr_001_4DBD::
-    ret                                           ; $4DBD: $C9
+    ld a, $03                                     ; $4dc0: $3e $03
+
+jr_001_4dc2:
+    cp $0e                                        ; $4dc2: $fe $0e
+    jr c, jr_001_4dc8                             ; $4dc4: $38 $02
+
+    ld a, $0e                                     ; $4dc6: $3e $0e
+
+jr_001_4dc8:
+    ld [de], a                                    ; $4dc8: $12
+    ldh [hScratch3], a                            ; $4dc9: $e0 $da
+    swap a                                        ; $4dcb: $cb $37
+    srl a                                         ; $4dcd: $cb $3f
+    cp [hl]                                       ; $4dcf: $be
+    jp nc, label_001_5D53                            ; $4dd0: $d2 $8b $5d
+
+    ld [hl], a                                    ; $4dd3: $77
+    ldh [hScratch2], a                            ; $4dd4: $e0 $d9
+    jp label_001_5D53                                ; $4dd6: $c3 $8b $5d
+
 
 func_001_4DBE::
     ld   a, [wSaveFilesCount]                     ; $4DBE: $FA $A7 $DB
     and  $02                                      ; $4DC1: $E6 $02
-    jr   z, jr_001_4DBD                            ; $4DC3: $28 $F8
+    ret z
 
-    ld   a, $01                                   ; $4DC5: $3E $01
-    ldh  [hScratch4], a                           ; $4DC7: $E0 $DB
-    ld   a, [$DC07]                               ; $4DC9: $FA $07 $DC
-    ldh  [hScratch2], a                           ; $4DCC: $E0 $D9
-    ld   a, [$DC0A]                               ; $4DCE: $FA $0A $DC
-    ldh  [hScratch3], a                           ; $4DD1: $E0 $DA
-    jp   label_001_5D53                               ; $4DD3: $C3 $53 $5D
+    ld a, $01
+    ld hl, $dc07
+    ld de, $dc0a
+    jr jr_001_4db6
 
 func_001_4DD6::
     ld   a, [wSaveFilesCount]                     ; $4DD6: $FA $A7 $DB
     and  $04                                      ; $4DD9: $E6 $04
-    jr   z, jr_001_4DBD                            ; $4DDB: $28 $E0
+    ret z
 
-    ld   a, $02                                   ; $4DDD: $3E $02
-    ldh  [hScratch4], a                           ; $4DDF: $E0 $DB
-    ld   a, [$DC08]                               ; $4DE1: $FA $08 $DC
-    ldh  [hScratch2], a                           ; $4DE4: $E0 $D9
-    ld   a, [$DC0B]                               ; $4DE6: $FA $0B $DC
-    ldh  [hScratch3], a                           ; $4DE9: $E0 $DA
-    jp   label_001_5D53                               ; $4DEB: $C3 $53 $5D
+    ld a, $02
+    ld hl, $dc08                                  ; $4df1: $21 $08 $dc
+    ld de, $dc0b                                  ; $4df4: $11 $0b $dc
+    jr jr_001_4db6                                ; $4df7: $18 $bd
 
 Data_001_4DEE::
     db   $98, $A5, $44, $7E, $98, $C5, $44, $7E   ; $4DEE
@@ -1364,15 +1379,15 @@ jr_001_503F::
 
 jr_001_5042::
     xor  a                                        ; $5042: $AF
-    add  [hl]                                     ; $5043: $86
+    or  [hl]                                     ; $5043: $86
     inc  hl                                       ; $5044: $23
-    add  [hl]                                     ; $5045: $86
+    or  [hl]                                     ; $5045: $86
     inc  hl                                       ; $5046: $23
-    add  [hl]                                     ; $5047: $86
+    or  [hl]                                     ; $5047: $86
     inc  hl                                       ; $5048: $23
-    add  [hl]                                     ; $5049: $86
+    or  [hl]                                     ; $5049: $86
     inc  hl                                       ; $504A: $23
-    add  [hl]                                     ; $504B: $86
+    or  [hl]                                     ; $504B: $86
     and  a                                        ; $504C: $A7
     jr   z, jr_001_5055                            ; $504D: $28 $06
 

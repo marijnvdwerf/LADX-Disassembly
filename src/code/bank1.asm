@@ -289,6 +289,31 @@ jr_001_52D9::
     ld   a, e
     or   d
     jr   nz, jr_001_52D9
+
+    ld de, wMaxHealth                             ; $52ef: $11 $5b $db
+    ld hl, wHealth                                ; $52f2: $21 $5a $db
+    ld a, [de]                                    ; $52f5: $1a
+    cp $03                                        ; $52f6: $fe $03
+    jr nc, jr_001_52fc                            ; $52f8: $30 $02
+
+    ld a, $03                                     ; $52fa: $3e $03
+
+jr_001_52fc:
+    cp $0e                                        ; $52fc: $fe $0e
+    jr c, jr_001_5302                             ; $52fe: $38 $02
+
+    ld a, $0e                                     ; $5300: $3e $0e
+
+jr_001_5302:
+    ld [de], a                                    ; $5302: $12
+    swap a                                        ; $5303: $cb $37
+    srl a                                         ; $5305: $cb $3f
+    cp [hl]                                       ; $5307: $be
+    jr nc, jr_001_530b                            ; $5308: $30 $01
+
+    ld [hl], a                                    ; $530a: $77
+
+jr_001_530b:
     ld   hl, $DDDA
     ld   de, $05
 
@@ -1379,6 +1404,7 @@ jr_001_5DE1::
     ret
 
 func_001_5DE6::
+    call $5eca
     ld   a, [wHealth]                           ; Does the player have any health?
     and  a                                      ; If yes, skip this
     jr   nz, .skipHealthReset
@@ -1453,6 +1479,104 @@ jr_001_5E3A::
     call EnableExternalRAMWriting
     ldi  [hl], a
     ret
+
+Data_001_5ea2:
+    db $06, $d9, $2b, $d9, $5a, $d9, $ff, $d9
+    db $85, $d9, $bc, $d9, $e8, $da, $34, $da
+
+Data_001_5eb2:
+    db $a4, $da, $b1, $da, $44, $d8, $ab, $da
+    db $e5, $da, $e8, $d9, $78, $d8, $f2, $d9
+    db $e6, $da, $df, $da, $ba, $da, $00, $d8
+
+Call_001_5eca:
+    ld a, $03                                     ; $5eca: $3e $03
+    ldh [hScratch0], a                            ; $5ecc: $e0 $d7
+    xor a                                         ; $5ece: $af
+    ldh [hScratch1], a                            ; $5ecf: $e0 $d8
+    ld c, $08                                     ; $5ed1: $0e $08
+    ld hl, Data_001_5ea2                                   ; $5ed3: $21 $a2 $5e
+_5edb
+    ld a, [hl+]                                   ; $5ed6: $2a
+    ld e, a                                       ; $5ed7: $5f
+    ld a, [hl+]                                   ; $5ed8: $2a
+    ld d, a                                       ; $5ed9: $57
+    ld a, [de]                                    ; $5eda: $1a
+    and $20                                       ; $5edb: $e6 $20
+    jr z, jr_001_5ee4                             ; $5edd: $28 $05
+    ldh a, [hScratch0]                            ; $5edf: $f0 $d7
+    inc a                                         ; $5ee1: $3c
+    ldh [hScratch0], a                            ; $5ee2: $e0 $d7
+
+jr_001_5ee4:
+    dec c                                         ; $5ee4: $0d
+    jr nz, _5edb                                   ; $5ee5: $20 $ef
+
+    ld c, $0c                                     ; $5ee7: $0e $0c
+    ld hl, Data_001_5eb2                                  ; $5ee9: $21 $b2 $5e
+
+jr_001_5eec:
+    ld a, [hl+]                                   ; $5eec: $2a
+    ld e, a                                       ; $5eed: $5f
+    ld a, [hl+]                                   ; $5eee: $2a
+    ld d, a                                       ; $5eef: $57
+    ld a, [de]                                    ; $5ef0: $1a
+    and $10                                       ; $5ef1: $e6 $10
+    jr z, jr_001_5f04                             ; $5ef3: $28 $0f
+
+    ldh a, [hScratch1]                            ; $5ef5: $f0 $d8
+    inc a                                         ; $5ef7: $3c
+    cp $04                                        ; $5ef8: $fe $04
+    jr nz, jr_001_5f02                            ; $5efa: $20 $06
+
+    ldh a, [hScratch0]                            ; $5efc: $f0 $d7
+    inc a                                         ; $5efe: $3c
+    ldh [hScratch0], a                            ; $5eff: $e0 $d7
+    xor a                                         ; $5f01: $af
+
+jr_001_5f02:
+    ldh [hScratch1], a                            ; $5f02: $e0 $d8
+
+jr_001_5f04:
+    dec c                                         ; $5f04: $0d
+    jr nz, jr_001_5eec                            ; $5f05: $20 $e5
+
+    ldh a, [hScratch0]                            ; $5f07: $f0 $d7
+    call Call_001_5f1c                            ; $5f09: $cd $1c $5f
+    ld [wMaxHealth], a                            ; $5f0c: $ea $5b $db
+    cp $0e                                        ; $5f0f: $fe $0e
+    jr nz, jr_001_5f16                            ; $5f11: $20 $03
+
+    xor a                                         ; $5f13: $af
+    jr jr_001_5f18                                ; $5f14: $18 $02
+
+jr_001_5f16:
+    ldh a, [hScratch1]                            ; $5f16: $f0 $d8
+
+jr_001_5f18:
+    ld [wHeartPiecesCount], a                     ; $5f18: $ea $5c $db
+    ret                                           ; $5f1b: $c9
+
+
+Call_001_5f1c:
+    cp $03                                        ; $5f1c: $fe $03
+    jr nc, jr_001_5f23                            ; $5f1e: $30 $03
+
+    ld a, $03                                     ; $5f20: $3e $03
+    ret                                           ; $5f22: $c9
+
+
+jr_001_5f23:
+    cp $0e                                        ; $5f23: $fe $0e
+    jr c, jr_001_5f29                             ; $5f25: $38 $02
+
+    ld a, $0e                                     ; $5f27: $3e $0e
+
+jr_001_5f29:
+    ret                                           ; $5f29: $c9
+
+
+
 
 ; Copy the current dungeon item flags to the global and persistent
 ; dungeons item flags table.
